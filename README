@@ -1,9 +1,10 @@
 https://cloud.google.com/python/tutorials/bookshelf-on-kubernetes-engine
 
 
-# cluster creation
+### cluster creation
 
 * https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-container-cluster
+* you dont need to specify zone if you already specified default [ gcloud config set compute/zone "asia-northeast1-a" ]
 
 gcloud container clusters create myjisho \
   --scopes "cloud-platform" \ 
@@ -21,9 +22,29 @@ kubectl get nodes
 
 
 
-# container creation
+### container creation
 
 docker build -t asia.gcr.io/themkickingpandas/myjisho .
 
 gcloud docker -- push asia.gcr.io/themkickingpandas/myjisho
+
+
+
+
+### container deploy
+
+kubectl create -f myjisho.yaml
+kubectl get deployments
+kubectl get pods
+kubectl describe pod pod-1036623984-smtn
+kubectl delete deployments myjisho.yaml
+
+kubectl describe service myjisho
+
+
+
+
+### cleanup
+
+gcloud container clusters delete myjisho
 
